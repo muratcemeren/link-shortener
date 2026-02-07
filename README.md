@@ -193,7 +193,7 @@ composer format
 Developed and maintained by **Murat Cem Eren**
 
 - GitHub: [@muratcemeren](https://github.com/muratcemeren)
-- LinkedIn: [linkedin.com/in/muratcemeren](https://linkedin.com/in/muratcemeren)
+- LinkedIn: [linkedin.com/in/muratcemeren](https://www.linkedin.com/in/cem-eren-ab1756113/)
 
 ## License
 
