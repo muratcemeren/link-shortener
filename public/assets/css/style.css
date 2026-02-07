@@ -1,0 +1,882 @@
+/* ================================
+   FUTURISTIC URL SHORTENER - PREMIUM DARK MODE
+   Neon Cyan & Electric Lime Theme
+   ================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ================================
+   ROOT VARIABLES - COLOR PALETTE
+   ================================ */
+:root {
+    /* Neon Colors */
+    --neon-cyan: #00f5ff;
+    --neon-lime: #c0ff00;
+    --neon-purple: #b026ff;
+
+    /* Background Colors */
+    --bg-primary: #0a0e1a;
+    --bg-secondary: #0f1420;
+    --bg-card: #151b2b;
+    --bg-elevated: #1a2235;
+
+    /* Grid & Borders */
+    --grid-color: rgba(0, 245, 255, 0.08);
+    --border-glow: rgba(0, 245, 255, 0.3);
+
+    /* Text Colors */
+    --text-primary: #ffffff;
+    --text-secondary: #8b95a8;
+    --text-tertiary: #5a6477;
+
+    /* Shadows & Glows */
+    --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.4), 0 0 40px rgba(0, 245, 255, 0.2);
+    --glow-lime: 0 0 20px rgba(192, 255, 0, 0.4), 0 0 40px rgba(192, 255, 0, 0.2);
+    --shadow-premium: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ================================
+   GLOBAL STYLES
+   ================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Animated Grid Background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.6;
+    pointer-events: none;
+    animation: gridMove 20s linear infinite;
+    z-index: 0;
+}
+
+@keyframes gridMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* Ambient Glow Effects */
+body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(176, 38, 255, 0.15) 0%,
+            transparent 50%),
+        radial-gradient(circle at 70% 70%,
+            rgba(0, 245, 255, 0.1) 0%,
+            transparent 50%);
+    pointer-events: none;
+    animation: ambientPulse 15s ease-in-out infinite;
+    z-index: 0;
+}
+
+@keyframes ambientPulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(1.1);
+    }
+}
+
+/* ================================
+   GLASSMORPHISM CARDS
+   ================================ */
+.glass-premium {
+    background: rgba(21, 27, 43, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent);
+    transition: left 0.5s ease;
+}
+
+.glass-premium:hover::before {
+    left: 100%;
+}
+
+/* ================================
+   NEON GLOW BUTTON - SHORTEN
+   ================================ */
+.btn-neon {
+    position: relative;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-lime));
+    color: var(--bg-primary);
+    font-weight: 700;
+    font-size: 16px;
+    padding: 16px 48px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 24px rgba(0, 245, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-neon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-neon:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-cyan);
+}
+
+.btn-neon:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Click Pulse Animation */
+@keyframes clickPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.7);
+    }
+
+    100% {
+        box-shadow: 0 0 0 30px rgba(0, 245, 255, 0);
+    }
+}
+
+.btn-neon:active {
+    animation: clickPulse 0.6s ease-out;
+}
+
+/* ================================
+   FUTURISTIC INPUT FIELD
+   ================================ */
+.input-futuristic {
+    background: rgba(10, 14, 26, 0.8);
+    border: 2px solid rgba(0, 245, 255, 0.3);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.input-futuristic:focus {
+    border-color: var(--neon-cyan);
+    box-shadow:
+        inset 0 2px 8px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(0, 245, 255, 0.3),
+        0 0 60px rgba(0, 245, 255, 0.15);
+}
+
+.input-futuristic::placeholder {
+    color: var(--text-tertiary);
+}
+
+/* ================================
+   STATS CARDS WITH GLOW
+   ================================ */
+.stat-card {
+    position: relative;
+    padding: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+            transparent 0%,
+            rgba(0, 245, 255, 0.1) 50%,
+            transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+.stat-card:hover::after {
+    opacity: 1;
+}
+
+/* Glow borders for stat icons */
+.stat-icon-cyan {
+    background: rgba(0, 245, 255, 0.15);
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.stat-icon-lime {
+    background: rgba(192, 255, 0, 0.15);
+    border: 1px solid rgba(192, 255, 0, 0.3);
+    box-shadow: 0 0 20px rgba(192, 255, 0, 0.2);
+}
+
+.stat-icon-purple {
+    background: rgba(176, 38, 255, 0.15);
+    border: 1px solid rgba(176, 38, 255, 0.3);
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.2);
+}
+
+/* ================================
+   LINK TRANSFORMATION ANIMATION
+   ================================ */
+@keyframes linkShrink {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.5) translateX(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) translateX(40px);
+    }
+}
+
+.link-transform {
+    animation: linkShrink 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* ================================
+   RESULT SUCCESS CARD
+   ================================ */
+.result-success {
+    background: linear-gradient(135deg,
+            rgba(0, 245, 255, 0.1) 0%,
+            rgba(192, 255, 0, 0.1) 100%);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 16px;
+    padding: 24px;
+    animation: slideInGlow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow:
+        0 8px 32px rgba(0, 245, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes slideInGlow {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================================
+   COPY BUTTON MICRO-INTERACTION
+   ================================ */
+.btn-copy {
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.btn-copy::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, var(--neon-lime) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.btn-copy:hover {
+    background: rgba(0, 245, 255, 0.1);
+    border-color: var(--neon-cyan);
+    transform: translateY(-2px);
+}
+
+.btn-copy:active::before {
+    width: 200px;
+    height: 200px;
+    opacity: 0.3;
+}
+
+/* ================================
+   TABLE FUTURISTIC STYLING
+   ================================ */
+.table-futuristic {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.table-futuristic tbody tr {
+    background: rgba(21, 27, 43, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.table-futuristic tbody tr::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--neon-cyan);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.table-futuristic tbody tr:hover {
+    background: rgba(0, 245, 255, 0.08);
+    transform: translateX(4px);
+}
+
+.table-futuristic tbody tr:hover::before {
+    opacity: 1;
+}
+
+/* ================================
+   LOADING SPINNER - CYBERPUNK
+   ================================ */
+.spinner-cyberpunk {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(0, 245, 255, 0.2);
+    border-top: 3px solid var(--neon-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    box-shadow: var(--glow-cyan);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ================================
+   SCROLLBAR CUSTOMIZATION
+   ================================ */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--neon-cyan), var(--neon-lime));
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--neon-lime), var(--neon-cyan));
+}
+
+/* ================================
+   NOTIFICATION TOAST
+   ================================ */
+.toast-success {
+    background: linear-gradient(135deg, var(--neon-lime), var(--neon-cyan));
+    color: var(--bg-primary);
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    box-shadow: var(--glow-lime);
+    animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* ================================
+   UTILITY CLASSES
+   ================================ */
+.text-neon-cyan {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+.text-neon-lime {
+    color: var(--neon-lime);
+    text-shadow: 0 0 10px rgba(192, 255, 0, 0.5);
+}
+
+.border-glow-cyan {
+    border: 1px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+/* Premium focus states */
+.focus-glow:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.3);
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+a,
+input,
+select,
+textarea {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================
+   RESPONSIVE ADJUSTMENTS
+   ================================ */
+@media (max-width: 768px) {
+    .btn-neon {
+        padding: 14px 32px;
+        font-size: 14px;
+    }
+
+    .input-futuristic {
+        font-size: 14px;
+        padding: 14px 20px;
+    }
+
+    /* Mobile-specific stats cards */
+    .stat-card {
+        padding: 16px;
+    }
+
+    /* Mobile table */
+    table {
+        font-size: 13px;
+    }
+
+    .table-futuristic tbody tr {
+        font-size: 12px;
+    }
+}
+
+/* Mobile breakpoint - Extra small devices */
+@media (max-width: 480px) {
+    .btn-neon {
+        padding: 12px 24px;
+        font-size: 13px;
+    }
+
+    .input-futuristic {
+        font-size: 13px;
+        padding: 12px 16px;
+    }
+
+    /* Stack input and button on very small screens */
+    .flex-input-wrapper {
+        flex-direction: column;
+    }
+
+    .flex-input-wrapper .btn-neon {
+        width: 100%;
+    }
+
+    /* Smaller stats text */
+    .stat-card p {
+        font-size: 2xl !important;
+    }
+}
+
+/* ================================
+   LIGHT MODE - PROFESSIONAL CORPORATE
+   ================================ */
+html:not(.dark) {
+    background: #ffffff;
+}
+
+html:not(.dark) body {
+    background: transparent;
+    color: #2d3748;
+}
+
+/* Light mode grid - Subtle gray */
+html:not(.dark) body::before {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+/* Light mode ambient - Minimal */
+html:not(.dark) body::after {
+    background: radial-gradient(circle at 30% 30%,
+            rgba(59, 130, 246, 0.05) 0%,
+            transparent 50%);
+}
+
+/* Light mode cards - Clean white */
+html:not(.dark) .glass-premium {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.08);
+    backdrop-filter: none;
+}
+
+html:not(.dark) header.glass-premium {
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Light mode input - Professional */
+html:not(.dark) .input-futuristic {
+    background: #ffffff;
+    border: 2px solid #cbd5e0;
+    color: #2d3748;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+html:not(.dark) .input-futuristic:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+html:not(.dark) .input-futuristic::placeholder {
+    color: #a0aec0;
+}
+
+/* Light mode button - Clean blue */
+html:not(.dark) .btn-neon {
+    background: #3b82f6;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+html:not(.dark) .btn-neon:hover {
+    background: #2563eb;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+/* Light mode headings */
+html:not(.dark) h1,
+html:not(.dark) h2,
+html:not(.dark) .text-white {
+    color: #1a202c !important;
+}
+
+/* Light mode text - Professional colors */
+html:not(.dark) .text-neon-cyan {
+    color: #3b82f6;
+    text-shadow: none;
+}
+
+html:not(.dark) .text-neon-lime {
+    color: #10b981;
+    text-shadow: none;
+}
+
+html:not(.dark) [style*="color: #8b95a8"] {
+    color: #64748b !important;
+}
+
+html:not(.dark) p[style*="color: #8b95a8"] {
+    color: #64748b !important;
+}
+
+/* Light mode stats cards */
+html:not(.dark) .stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+}
+
+html:not(.dark) .stat-card:hover {
+    border-color: #cbd5e0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Light mode stat card text colors */
+html:not(.dark) .stat-card p {
+    color: #64748b !important;
+}
+
+html:not(.dark) .stat-card .text-4xl,
+html:not(.dark) .stat-card p[id] {
+    color: #1e293b !important;
+}
+
+/* Light mode stat icons - Solid colors */
+html:not(.dark) .stat-icon-cyan {
+    background: #3b82f6;
+    border: none;
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+html:not(.dark) .stat-icon-cyan svg {
+    color: #ffffff !important;
+}
+
+html:not(.dark) .stat-icon-lime {
+    background: #10b981;
+    border: none;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+html:not(.dark) .stat-icon-lime svg {
+    color: #ffffff !important;
+}
+
+html:not(.dark) .stat-icon-purple {
+    background: #8b5cf6;
+    border: none;
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+html:not(.dark) .stat-icon-purple svg {
+    color: #ffffff !important;
+}
+
+html:not(.dark) [style*="color: #b026ff"] {
+    color: #8b5cf6 !important;
+}
+
+/* Override inline styles for light mode visibility */
+html:not(.dark) .stat-card [style*="color"] {
+    color: #1e293b !important;
+}
+
+html:not(.dark) .stat-card .text-sm {
+    color: #64748b !important;
+}
+
+/* Light mode table - Clean */
+html:not(.dark) .table-futuristic tbody tr {
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+html:not(.dark) .table-futuristic tbody tr:hover {
+    background: #f8fafc;
+}
+
+html:not(.dark) .table-futuristic tbody tr::before {
+    background: #3b82f6;
+}
+
+html:not(.dark) .table-futuristic thead tr {
+    background: #f8fafc;
+}
+
+html:not(.dark) .table-futuristic th {
+    color: #475569 !important;
+    font-weight: 600;
+}
+
+html:not(.dark) a.text-neon-cyan {
+    color: #3b82f6 !important;
+}
+
+html:not(.dark) a.text-neon-cyan:hover {
+    color: #2563eb !important;
+}
+
+/* Light mode badges - Professional */
+html:not(.dark) span[style*="background: rgba(0, 245, 255, 0.15)"] {
+    background: #eff6ff !important;
+    color: #3b82f6 !important;
+    border: 1px solid #bfdbfe !important;
+}
+
+/* Light mode result card */
+html:not(.dark) .result-success {
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+}
+
+/* Light mode copy button */
+html:not(.dark) .btn-copy {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+}
+
+html:not(.dark) .btn-copy:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e0;
+}
+
+/* Light mode scrollbar */
+html:not(.dark) ::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Light mode footer */
+html:not(.dark) footer {
+    background: #ffffff;
+    border-color: #e2e8f0;
+}
+
+html:not(.dark) footer [style*="color: #8b95a8"] {
+    color: #64748b !important;
+}
+
+html:not(.dark) .text-neon-cyan {
+    color: #3b82f6 !important;
+}
+
+html:not(.dark) .text-neon-lime {
+    color: #10b981 !important;
+}
+
+/* Light mode mobile cards */
+html:not(.dark) .mobile-card {
+    background: #ffffff;
+    border-left: 3px solid #3b82f6;
+    border-right: 1px solid #e2e8f0;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* ================================
+   DARK MODE ENHANCEMENTS
+   ================================ */
+.dark {
+    background: var(--bg-primary);
+}
+
+.dark .bg-white {
+    background: var(--bg-card) !important;
+}
+
+.dark .text-gray-900 {
+    color: var(--text-primary) !important;
+}
+
+.dark .text-gray-600,
+.dark .text-gray-500 {
+    color: var(--text-secondary) !important;
+}
+
+/* ================================
+   MOBILE OPTIMIZATIONS
+   ================================ */
+@media (max-width: 768px) {
+
+    /* Hide table on mobile, show cards instead */
+    .mobile-hidden {
+        display: none;
+    }
+
+    /* Mobile card view for URLs */
+    .mobile-card {
+        display: block;
+        margin-bottom: 12px;
+        padding: 16px;
+        background: rgba(21, 27, 43, 0.4);
+        border-radius: 12px;
+        border-left: 3px solid var(--neon-cyan);
+    }
+
+    .dark .mobile-card {
+        background: rgba(21, 27, 43, 0.4);
+    }
+
+    html:not(.dark) .mobile-card {
+        background: rgba(255, 255, 255, 0.8);
+        border-left: 3px solid #00f5ff;
+    }
+
+    /* Touch-friendly buttons */
+    button,
+    a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Larger tap targets */
+    .btn-neon,
+    .btn-copy {
+        padding: 16px 32px;
+    }
+}
